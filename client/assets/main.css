@@ -1,0 +1,17 @@
+h1{
+    color:red;
+}
+#mcontent{
+    position: relative;
+    top:135px;
+}
+#logo-main{
+    max-height: 80px;
+}
+#hdr{
+    background: #ffffff;
+}
+
+body{
+background-color: burlywood;
+}
