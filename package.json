@@ -8,6 +8,7 @@
     "ejs": "^2.5.6",
     "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
-    "express-validator": "latest"
+    "express-validator": "latest",
+    "mongojs": "latest"
   }
 }
