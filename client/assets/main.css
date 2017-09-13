@@ -3,7 +3,7 @@ h1{
 }
 #mcontent{
     position: relative;
-    top:135px;
+    top:150px;
 }
 #logo-main{
     max-height: 80px;
@@ -14,4 +14,52 @@ h1{
 
 body{
 background-color: burlywood;
+}
+
+.navbar-nav li a {
+    font-size: 1.5em;
+}
+.navbar #nav > .active > a {
+	color: cadetblue;
+}
+
+h1{
+  color: darkblue;
+}
+.align-center{
+  color:blue;
+}
+.cmpny {
+padding-top:60px;
+}
+.titl {
+display:inline-block;
+padding-left:20px;
+}
+.ser {
+	background-color:aliceblue;
+		
+}
+#serv {
+	color:red;
+}
+.contact {
+	color:darkgreen;
+}
+
+.findAJob {
+	font-size: 150%;
+	margin: 40px auto auto auto;
+}
+
+.category {
+	margin-right: 50px;
+	border-radius: 5px;
+}
+
+#search {
+	border-radius: 5px;
+	background-color: red;
+	font-weight: bold;
+	color: white;
 }

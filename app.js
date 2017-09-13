@@ -4,8 +4,9 @@ var path = require('path');
 var app = express();
 var expressValidator= require('express-validator');
 var mongojs = require('mongojs');
-var db = mongojs('customerapp', ['users']);
+var db = mongojs('customerapp', ['jobs']);
 var ObjectId = mongojs.ObjectId;
+
 
 
 //Body parser middleware
@@ -49,28 +50,48 @@ res.render('index',{
 });
 
 app.get('/postingJob', function(req,res){
-	db.users.find(function(err,docs){
-		res.render('postingJob', {
-		title: 'USLadders',
-		users: docs
-	});
+	db.jobs.find(function(err,docs){
+		if(!err){
+			res.render('postingJob', {
+			title: 'USLadders',
+			jobs: docs
+		});
+	}
+	else{
+
+	}
 	})
 });
 
-app.get('/about', function(req,res){
+app.get('/about', function (req, res) {
 res.render('about',{
 	title:'USLadders'
 });
 });
-
-
+app.get('/applyJob', function (req, res) {
+	res.render('applyJob', {
+		title: 'USLadders'
+	});
+});
 app.get('/findingJob', function(req,res){
-res.render('findingJob',{
-	title:'USLadders'
-});
+	db.jobs.find(function (err, docs) {
+		if (!err) {
+			res.render('findingJob', {
+				title: 'USLadders',
+				jobs: docs
+			});
+		}
+		else {
+
+		}
+	})
 });
 
+app.get('/companiesDetail', function (req, res){
+    res.render('companiesDetail',{
 
+		});
+});
 
 app.get('/resources', function(req,res){
 res.render('resources',{
@@ -78,13 +99,17 @@ res.render('resources',{
 });
 });
 
-app.post('/users/add', function(req,res){
+app.post('/jobs/add', function(req,res){
 
 	req.checkBody('company_name', 'First Name is required').notEmpty();
 	req.checkBody('company_id', 'Last Name is required').notEmpty();
 	req.checkBody('employee_name', 'Email is required').notEmpty();
-		req.checkBody('job_description', 'Email is required').notEmpty();
-	req.checkBody('qualifications', 'Email is required').notEmpty();
+	req.checkBody('job_category', 'Category is required').notEmpty();
+		req.checkBody('job_description', 'Description is required').notEmpty();
+		req.checkBody('qualifications', 'Qualifications are required').notEmpty();
+		req.checkBody('experience', 'Experience is required').notEmpty();
+		req.checkBody('contact_details', 'Contact are required').notEmpty();
+
 
 
 	var errors = req.validationErrors();
@@ -92,9 +117,9 @@ app.post('/users/add', function(req,res){
 	if(errors){
 res.render('postingJob', {
 		title: 'Customers',
-		users: users,
+		jobs: jobs,
 		errors: errors
-	});	
+	});
 }
 	else{
 		var newUser = {
@@ -102,9 +127,13 @@ res.render('postingJob', {
 		company_id : req.body.company_id,
 		employee_name : req.body.employee_name,
 		job_description: req.body.job_description,
-		qualifications: req.body.qualifications
+		job_category: req.body.job_category,
+		qualifications: req.body.qualifications,
+		experience: req.body.experience,
+		contact_details: req.body.contact_details
+
 	}
-db.users.insert(newUser,function (err,result) {
+db.jobs.insert(newUser,function (err,result) {
 	if(err){
 		console.log(err);
 	}
@@ -116,8 +145,8 @@ db.users.insert(newUser,function (err,result) {
 
 	});
 
-app.delete('/users/delete/:id', function(req,res){
-	db.users.remove({_id: ObjectId(req.params.id)}, function(err,result){
+app.delete('/jobs/delete/:id', function(req,res){
+	db.jobs.remove({_id: ObjectId(req.params.id)}, function(err,result){
  if(err){
  	console.log(err);
  }

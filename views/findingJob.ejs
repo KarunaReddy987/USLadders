@@ -2,5 +2,43 @@
 <% include partials/navbar %>
 
 <h1> Find a Job </h1>
+<br>
+<div class="findAJob">
+    <label class="data">Category: </label>
+    <select class="category">
+       <option value="Accounting">Accounting</option>
+       <option value="Computer Science">Computer Science</option>
+       <option value="Finance">Finance</option>
+       <option value="Health Science">Health Science</option>
+       <option value="Management">Management</option>
+    </select>
+	<br>
+    <label class="data">Experience: </label>
+    <select class="category">
+       <option value="0-1 yrs">0-1 yrs</option>
+       <option value="1-2 yrs">1-2 yrs</option>
+       <option value="2-3 yrs">2-3 yrs</option>
+       <option value="3-4 yrs">3-4 yrs</option>
+       <option value="more than 4 yrs">more than 4 yrs</option>
+    </select>
 
+    <input type="submit" id="search" value="SEARCH">
+
+</div>
+
+<br>
+<br>
+
+<ul>
+<% jobs.forEach(function(job){ %>
+<div class="container-fluid">
+<li> Company: <%= job.company_name %> <br> Company ID: <%=job.company_id %> <br> Employee Name: <%=job.employee_name %>
+<br> Job Category: <%= job.job_category %> <br> Job Description: <%=job.job_description %>
+<br> Qualifications required: <%=job.qualifications %>  <br> Experience Required: <%=job.experience %>
+<br> Contact Details: <%=job.contact_details %>
+</div>
+
+<br> Click here to apply for this Job - <a href = "applyJob" > Apply </a> </li>
+<% }) %>
+</ul>
 <% include partials/footer %>

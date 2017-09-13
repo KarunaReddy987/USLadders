@@ -12,7 +12,7 @@
 </ul>
 
 <% } %>
-<form method ="POST" action = "/users/add" >
+<form method ="POST" action = "/jobs/add" >
 <br>
 <label> Company Name  </label>
 <input type="text" name="company_name" class="form-control" placeholder="Company Name">
@@ -25,7 +25,7 @@
 <br>
 <label> Job Category </label>
 <br>
-<select class="form-control">
+<select type="text" name="job_category" class="form-control">
   <option>Computer Science</option>
   <option>Finance</option>
   <option>Accounting</option>
@@ -51,7 +51,7 @@
 <br>
 <label> Experience Required </label>
 <br>
-<select class="form-control">
+<select name="experience" class="form-control">
   <option>0-1 yrs</option>
   <option>1-2 yrs</option>
   <option>2-3 yrs</option>
@@ -67,10 +67,13 @@
 </form>
 
 <ul>
-<% users.forEach(function(user){ %>
-<li> Company: <%= user.company_name %> <br> Company ID: <%=user.company_id %> <br> Employee Name: <%=user.employee_name %> <br> Job Description <%=user.job_description %>
-<br> Qualifications required: <%=user.qualifications %>
-<br> Click here to delete this Job - <a href = "postingJob" class="deleteUser" data-id="<%= user._id %>" > Delete </a> </li>
+<% jobs.forEach(function(job){ %>
+<li> Company: <%= job.company_name %> <br> Company ID: <%=job.company_id %> <br> Employee Name: <%=job.employee_name %> 
+<br> Job Category: <%= job.job_category %> <br> Job Description: <%=job.job_description %> 
+<br> Qualifications required: <%=job.qualifications %>  <br> Experience Required: <%=job.experience %>
+<br> Contact Details: <%=job.contact_details %>
+
+<br> Click here to delete this Job - <a href = "postingJob" class="deleteUser" data-id="<%= job._id %>" > Delete </a> </li> <br> <br>
 <% }) %>
 </ul>
 

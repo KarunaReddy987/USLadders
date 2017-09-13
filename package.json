@@ -9,6 +9,9 @@
     "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
     "express-validator": "latest",
-    "mongojs": "latest"
+    "mongojs": "^2.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.0"
   }
 }
