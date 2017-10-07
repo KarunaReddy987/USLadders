@@ -8,7 +8,6 @@ var db = mongojs('customerapp', ['jobs']);
 var ObjectId = mongojs.ObjectId;
 
 
-
 //Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
@@ -156,6 +155,6 @@ app.delete('/jobs/delete/:id', function(req,res){
 	});
 });
 
-app.listen(3000, function(){
+app.listen(3002, function(){
 	console.log('Express started');
 });
