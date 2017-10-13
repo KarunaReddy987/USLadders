@@ -5,6 +5,7 @@ var app = express();
 var expressValidator= require('express-validator');
 var mongojs = require('mongojs');
 var db = mongojs('customerapp', ['jobs']);
+var db1 = mongojs('customerapp', ['users']);
 var ObjectId = mongojs.ObjectId;
 
 
@@ -46,6 +47,18 @@ app.get('/', function(req,res){
 res.render('index',{
 	title:'USLadders'
 });
+});
+
+app.get('/login', function (req, res) {
+	res.render('login', {
+		title: 'USLadders'
+	});
+});
+
+app.get('/register', function (req, res) {
+	res.render('register', {
+		title: 'USLadders'
+	});
 });
 
 app.get('/postingJob', function(req,res){
@@ -98,6 +111,71 @@ res.render('resources',{
 });
 });
 
+
+app.post('/users/add', function (req, res) {
+	req.checkBody('username', 'User Name is required').notEmpty();
+	req.checkBody('email', 'Email is required').notEmpty();
+	req.checkBody('password', 'Password is required').notEmpty();
+	var errors = req.validationErrors();
+
+	if (errors) {
+		res.render('login', {
+			title: 'Customers',
+			users: users,
+			errors: errors
+		});
+	}
+	else {
+		var newUser = {
+			username : req.body.username,
+			email : req.body.email,
+			password : req.body.password,
+			confirmpassword : req.body.confirmpassword
+
+		}
+		db1.users.insert(newUser, function (err, result) {
+			if (err) {
+				console.log(err);
+			}
+			else {
+				console.log("new data is entered");
+				res.redirect('/login');
+			}
+		})
+	}
+
+});
+
+app.post('/login', function (req, res) {
+
+	var user = req.body.username;
+	var pass = req.body.password;
+	req.checkBody('uname', 'Password is required').notEmpty();
+
+	req.checkBody('pwd', 'User Name is required').notEmpty();
+
+	var errors = req.validationErrors();
+
+
+
+
+	db1.users.findUser({ username: user, password: pass }, function (err, result) {
+		var errors = req.validationErrors();
+		if (errors) {
+			res.render('login', {
+				title: 'Customers',
+				users: users,
+				errors: errors
+
+			});
+		}
+		else {
+			console.log("Login Successful");
+			res.redirect('/');
+		}
+	});
+});
+
 app.post('/jobs/add', function(req,res){
 
 	req.checkBody('company_name', 'First Name is required').notEmpty();
@@ -114,7 +192,7 @@ app.post('/jobs/add', function(req,res){
 	var errors = req.validationErrors();
 
 	if(errors){
-res.render('postingJob', {
+        res.render('postingJob', {
 		title: 'Customers',
 		jobs: jobs,
 		errors: errors
@@ -131,7 +209,8 @@ res.render('postingJob', {
 		experience: req.body.experience,
 		contact_details: req.body.contact_details
 
-	}
+		}
+
 db.jobs.insert(newUser,function (err,result) {
 	if(err){
 		console.log(err);
@@ -153,6 +232,28 @@ app.delete('/jobs/delete/:id', function(req,res){
  	res.redirect('/postingJob');
  }
 	});
+});
+
+app.get('/accountSettings', function (req, res) {
+    res.render('accountSettings', {
+        title: 'USLadders'
+    });
+});
+app.get('/updateProfile', function (req, res) {
+    res.render('updateProfile', {
+        title: 'USLadders'
+    });
+});
+
+app.get('/jobsApplied', function (req, res) {
+    res.render('jobsApplied', {
+        title: 'USLadders'
+    });
+});
+app.get('/jobsPosted', function (req, res) {
+    res.render('jobsPosted', {
+        title: 'USLadders'
+    });
 });
 
 app.listen(3002, function(){

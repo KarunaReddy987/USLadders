@@ -1,11 +1,4 @@
-<script>
-	$(function() {
-	$('#nav li a').click(function() {
-	$('#nav li').removeClass();
-	$($(this).attr('href')).addClass('active');
-	});
-	});
-</script>
+
 
 <div class="navbar navbar-default navbar-fixed-top" id="hdr">
 <div class="container">
@@ -31,6 +24,20 @@
                 <li id="postingJob"> <a href="/postingJob"> Post a Job </a> </li>
                 <li id="resources"><a href="/resources">Resources</a></li>
                 <li id="about"><a href="/about">About</a></li>
+				        <li id="login"><a href ="/login"> Login </a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">User Options<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          <li><a href="/jobsPosted">Jobs Posted</a></li>
+          <li><a href="/jobsApplied">Jobs Applied</a></li>
+          <li><a href="/updateProfile">Update Profile</a></li>
+          <li><a href="/accountSettings">Account Settings</a></li>
+          <li><a href="/">Sign out</a></li>
+
+
+
+            <li><a href="#"></a></li>
+        </ul>
+      </li>
             </ul>
         </div>
         <!--/.navbar-collapse -->
