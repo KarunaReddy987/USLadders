@@ -111,6 +111,25 @@ res.render('resources',{
 });
 });
 
+app.get('/sampleResumes', function(req,res){
+	res.render('sampleResumes',{
+		title:'USLadders'
+	});
+	});
+
+app.get('/coverLetters', function(req,res){
+		res.render('coverLetters',{
+			title:'USLadders'
+		});
+		});
+	
+
+app.get('/sampleResumeStudent', function(req,res){
+			res.render('sampleResumeStudent',{
+				title:'USLadders'
+			});
+			});
+
 
 app.post('/users/add', function (req, res) {
 	req.checkBody('username', 'User Name is required').notEmpty();
