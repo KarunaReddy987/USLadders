@@ -1,6 +1,6 @@
 
 
-<div class="navbar navbar-default navbar-fixed-top" id="hdr">
+<div class="navbar navbar-default " id="hdr">
 <div class="container">
     <img id="logo-main" src="https://cdn2.iconfinder.com/data/icons/employment-business/256/Job_Search-512.png" alt="Logo Thing main logo"></img>
 	<div class="titl">
@@ -18,20 +18,44 @@
             </button>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li id="home"><a href="/">Home</a></li>
-                <li id="findingJob"><a href="/findingJob"> Find a Job </a> </li>
-                <li id="postingJob"> <a href="/postingJob"> Post a Job </a> </li>
-                <li id="resources"><a href="/resources">Resources</a></li>
-                <li id="about"><a href="/about">About</a></li>
-				        <li id="login"><a href ="/login"> Login </a></li>
-                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">User Options<span class="caret"></span></a>
+			<ul class="nav navbar-nav">
+				<li id="home">
+					<a href="/">Home</a>
+				</li>
+				<li id="findingJob">
+					<a href="/findingJob"> Find a Job </a>
+				</li>
+				<li id="postingJob">
+					<a href="/postingJob"> Post a Job </a>
+				</li>
+				<li id="resources">
+					<a href="/resources">Resources</a>
+				</li>
+				<li id="about">
+					<a href="/about">About</a>
+				</li>
+
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<% if(!user){ %>
+				        <li ><a href ="/login"> Login </a></li>
+					
+					<% } %>
+						
+		<% if(user){ %>
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= user.username %><span class="caret"></span></a>
           <ul class="dropdown-menu">
           <li><a href="/jobsPosted">Jobs Posted</a></li>
           <li><a href="/jobsApplied">Jobs Applied</a></li>
           <li><a href="/updateProfile">Update Profile</a></li>
           <li><a href="/accountSettings">Account Settings</a></li>
-          <li><a href="/">Sign out</a></li>
+			  
+			  <li>
+				  <a href="/logout">Sign out</a>
+			  </li>
+
+			  <% } %>
+			  
 
 
 

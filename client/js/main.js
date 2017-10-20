@@ -49,17 +49,18 @@ $(function () {
 	});
 
 
-
-
     // Instantiate the Bootstrap carousel
 
-    $('.multi-item-carousel').carousel({
-		interval: true
-    });
+ 
 
 
     // for every slide in carousel, copy the next slide's item in the slide.
     // Do the same for the next, next item.
+/*
+
+   $('.multi-item-carousel').carousel({
+		interval: true
+    });
     $('.multi-item-carousel .item').each(function () {
         var next = $(this).next();
         if (!next.length) {
@@ -72,4 +73,19 @@ $(function () {
         } else {
             $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
         }
-    });
+	});
+
+*/
+	$('#register-submit').click(function (evt) {
+		evt.preventDefault()
+		var password = $("#password").val();
+		var confirmPassword = $("#confirmpassword").val();
+
+		if (password != confirmPassword) {
+			alert("both the password should match");
+			console.log("Not equal");
+		} else {
+			
+		}
+
+});

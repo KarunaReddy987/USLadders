@@ -4,17 +4,18 @@
 <h1> Find a Job </h1>
 
 <div class="findAJob">
+	<form method="GET" >
     <label class="data">Category: </label>
-    <select class="category">
+    <select class="category" id="cat" name="category">
        <option value="Accounting">Accounting</option>
        <option value="Computer Science">Computer Science</option>
        <option value="Finance">Finance</option>
        <option value="Health Science">Health Science</option>
-       <option value="Management">Management</option>
+       <option value="Mangement">Management</option>
     </select>
 	<br>
     <label class="data">Experience: </label>
-    <select class="category">
+    <select class="category" id="exp" name="expr">
        <option value="0-1 yrs">0-1 yrs</option>
        <option value="1-2 yrs">1-2 yrs</option>
        <option value="2-3 yrs">2-3 yrs</option>
@@ -23,7 +24,7 @@
     </select>
 
     <input type="submit" id="search" value="SEARCH">
-
+	</form>
 </div>
 
 <br>
@@ -42,3 +43,7 @@
 <% }) %>
 </ul>
 <% include partials/footer %>
+<script>
+$("#cat").val("<%= where.job_category %>");
+$("#exp").val("<%= where.experience %>");
+</script>

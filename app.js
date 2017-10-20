@@ -7,7 +7,9 @@ var mongojs = require('mongojs');
 var db = mongojs('customerapp', ['jobs']);
 var db1 = mongojs('customerapp', ['users']);
 var ObjectId = mongojs.ObjectId;
-
+var session = require('express-session');
+// Use the session middleware
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 360000 } }))
 
 //Body parser middleware
 app.use(bodyParser.json());
@@ -15,7 +17,8 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 
 app.use(function(req,res,next){
-	res.locals.errors = null;
+	res.locals.errors = null;	
+	res.locals.user = req.session.user;
 	next();
 });
 
@@ -85,18 +88,27 @@ app.get('/applyJob', function (req, res) {
 		title: 'USLadders'
 	});
 });
-app.get('/findingJob', function(req,res){
-	db.jobs.find(function (err, docs) {
+app.get('/findingJob', function (req, res) {
+
+	console.log(req.query);
+	let where = {
+		"job_category": req.query.category || "Accounting",
+		"experience": req.query.expr || "0-1 yrs"
+	};
+	console.log(where);
+	
+	db.jobs.find(where, function (err, docs) {
 		if (!err) {
 			res.render('findingJob', {
 				title: 'USLadders',
-				jobs: docs
+				jobs: docs, where: where
 			});
 		}
 		else {
 
 		}
 	})
+
 });
 
 app.get('/companiesDetail', function (req, res){
@@ -115,7 +127,7 @@ app.get('/sampleResumes', function(req,res){
 	res.render('sampleResumes',{
 		title:'USLadders'
 	});
-	});
+});
 
 app.get('/coverLetters', function(req,res){
 		res.render('coverLetters',{
@@ -128,8 +140,12 @@ app.get('/sampleResumeStudent', function(req,res){
 			res.render('sampleResumeStudent',{
 				title:'USLadders'
 			});
-			});
+});
 
+app.get('/logout', function (req, res) {
+	req.session.user = null;
+	res.redirect("/");
+});
 
 app.post('/users/add', function (req, res) {
 	req.checkBody('username', 'User Name is required').notEmpty();
@@ -146,29 +162,43 @@ app.post('/users/add', function (req, res) {
 	}
 	else {
 		var newUser = {
-			username : req.body.username,
-			email : req.body.email,
-			password : req.body.password,
-			confirmpassword : req.body.confirmpassword
+			username: req.body.username,
+			email: req.body.email,
+			password: req.body.password,
+			confirmpassword: req.body.confirmpassword
 
 		}
-		db1.users.insert(newUser, function (err, result) {
-			if (err) {
-				console.log(err);
+		db1.users.findOne({
+			username: newUser.username
+		}, function (err, result) {
+			console.log(result);
+			if (result === null) {
+				db1.users.insert(newUser, function (err, result) {
+					if (err) {
+						console.log(err);
+					}
+					else {
+						console.log("new data is entered");
+						res.redirect('/login');
+					}
+				});
 			}
 			else {
-				console.log("new data is entered");
-				res.redirect('/login');
+				res.send("<center><h1>User Already Exists :-( </h1></center>");
 			}
-		})
+		});
+
 	}
 
 });
 
 app.post('/login', function (req, res) {
 
-	var user = req.body.username;
-	var pass = req.body.password;
+	var user = req.body.uname;
+	var pass = req.body.pwd;
+
+
+
 	req.checkBody('uname', 'Password is required').notEmpty();
 
 	req.checkBody('pwd', 'User Name is required').notEmpty();
@@ -178,7 +208,7 @@ app.post('/login', function (req, res) {
 
 
 
-	db1.users.findUser({ username: user, password: pass }, function (err, result) {
+	db1.users.findOne({ username: user, password: pass }, function (err, result) {
 		var errors = req.validationErrors();
 		if (errors) {
 			res.render('login', {
@@ -189,8 +219,14 @@ app.post('/login', function (req, res) {
 			});
 		}
 		else {
-			console.log("Login Successful");
-			res.redirect('/');
+			if (result !== null) {
+				console.log("Login Successful");
+				req.session.user = result;
+				res.redirect('/');
+			}
+			else {
+				res.send("Invalid Credentials :-(");
+			}
 		}
 	});
 });
@@ -270,10 +306,19 @@ app.get('/jobsApplied', function (req, res) {
     });
 });
 app.get('/jobsPosted', function (req, res) {
-    res.render('jobsPosted', {
-        title: 'USLadders'
-    });
+	db.jobs.find(function (err, docs) {
+		if (!err) {
+			res.render('jobsPosted', {
+				title: 'USLadders',
+				jobs: docs
+			});
+		}
+		else {
+
+		}
+	})
 });
+
 
 app.listen(3002, function(){
 	console.log('Express started');

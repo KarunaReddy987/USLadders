@@ -15,17 +15,17 @@
 <form method ="POST" action = "/jobs/add" >
 <br>
 <label> Company Name  </label>
-<input type="text" name="company_name" class="form-control" placeholder="Company Name">
+<input type="text" name="company_name" required class="form-control" placeholder="Company Name">
 <br>
 <label> Company ID </label>
-<input type="text" name="company_id" class="form-control" placeholder="Company ID">
+<input type="text" name="company_id" required class="form-control" placeholder="Company ID">
 <br>
 <label> Employee Name </label>
-<input  type="text" name= "employee_name" class="form-control" placeholder="Employee Name">
+<input  type="text" name= "employee_name" required class="form-control" placeholder="Employee Name">
 <br>
 <label> Job Category </label>
 <br>
-<select type="text" name="job_category" class="form-control">
+<select type="text" name="job_category" required class="form-control">
   <option>Computer Science</option>
   <option>Finance</option>
   <option>Accounting</option>
@@ -34,15 +34,15 @@
 </select>
 <br>
 <label> Job Description </label>
-<textarea name="job_description" class="form-control" rows="3" placeholder="Description"></textarea>
+<textarea name="job_description" required="required" class="form-control" rows="3" placeholder="Description"></textarea>
 <br>
 <label> Qualifications Required</label>
-<textarea name="qualifications" class="form-control" rows="3" placeholder="Description"></textarea>
+<textarea name="qualifications" required="required" class="form-control" rows="3" placeholder="Description"></textarea>
 <br>
 <label> Providing H1 </label>
 <br>
 <label class="radio-inline">
-  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Yes
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" checked value="option1"> Yes
 </label>
 <label class="radio-inline">
   <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> NO
@@ -60,7 +60,7 @@
 </select>
 <br>
 <label>Contact Details</label>
-<textarea name="contact_details" class="form-control" rows="3" placeholder="Contact Details"></textarea>
+<textarea name="contact_details" required="required" class="form-control" rows="3" placeholder="Contact Details"></textarea>
 <br>
 <br>
 <input type= "submit" name="Submit" class="btn btn-success">

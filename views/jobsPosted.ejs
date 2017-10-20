@@ -3,8 +3,47 @@
 
 <h1> Jobs you have posted </h1>
 <br>
+<style>
+table, th, td {
+    border: 0px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
 
+</style>
+</head>
 <body>
+  <div class="tmargin">
+  <table class = "table table-condensed">
+    <thead>
+    <tr>
+        <th>Company</th>
+        <th>Job Category</th>
+        <th>Job Description</th>
+        <th>Number of Applications</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+  <% jobs.forEach(function(job){ %>
+  <td> <%=job.company_name %> </td>
+  <td> <%= job.job_category %> </td>
+  <td> <%=job.job_description %> </td>
+  <td align="center"> <%= job.count %> 1                        
+    <button  type="button" class="btn btn-primary">view</button>
+  </td>
+</tr>
 
-</body>
+  <!-- <br> Qualifications required: <%=job.qualifications %>  <br> Experience Required: <%=job.experience %>
+  <br> Contact Details: <%=job.contact_details %> -->
+
+  <!-- <br> Click here to delete this Job - <a href = "postingJob" class="deleteUser" data-id="<%= job._id %>" > Delete </a> </li> <br> <br> -->
+  <% }) %>
+</tbody>
+</table>
+</div>
+
 <% include partials/footer %>

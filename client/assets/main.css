@@ -3,7 +3,7 @@ h1{
 }
 #mcontent{
     position:relative;
-    top:150px;
+   // top:150px;
 }
 #logo-main{
     max-height: 70px;
@@ -148,7 +148,7 @@ h1 {
 /* login css*/
 
 body {
-	padding-top: 90px;
+//	padding-top: 90px;
 }
 
 .panel-login {
@@ -261,4 +261,8 @@ body {
 
 #login {
 	padding-left:500px;
+}
+
+.btn btn-primary {
+padding-left:30px;
 }

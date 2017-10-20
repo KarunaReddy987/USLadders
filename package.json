@@ -9,6 +9,7 @@
     "ejs": "^2.5.6",
     "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
     "express-validator": "latest",
     "mongojs": "^2.4.0"
   },
