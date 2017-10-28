@@ -2,9 +2,24 @@
 <% include partials/navbar %>
 
 <h1> Apply for the job </h1>
-<br>
 
-<body>
+<form method ="POST" action = "/applications/add" >
+<form ref='uploadForm' class="form" 
+      id='uploadForm' 
+      action='http://localhost:8000/upload' 
+      method='post' 
+      encType="multipart/form-data">
+        <input type="file" name="sampleFile " /> <br>
+        <input type='submit' value="Upload Resume" />
+    </form>   
+	<br>
+	<br>
+<input type= "submit" name="Submit" class="btn btn-success" value="Apply">
+<input type= "submit" name="Cancel" class="btn btn-danger" value="Cancel"> 
 
-</body>
+</form>
+
+
+
+
 <% include partials/footer %>

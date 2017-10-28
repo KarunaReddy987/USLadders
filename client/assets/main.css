@@ -266,3 +266,67 @@ body {
 .btn btn-primary {
 padding-left:30px;
 }
+
+
+/*abhinav*/
+
+
+/*//new feed*/
+.sidenav {
+	background-color: #f1f1f1;
+	height: 50%;
+}
+
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 20px;
+	}
+
+	.row.content {
+		height: auto;
+	}
+}
+
+.btn btn-primary {
+	padding-left: 30px;
+}
+/* search bar in jobs posted*/
+#myInput {
+	background-image: url('find.png'); /* Add a search icon to input */
+	background-position: 10px 12px; /* Position the search icon */
+	background-repeat: no-repeat; /* Do not repeat the icon image */
+	/*width: 50%; /* Full-width */ */ font-size: 16px; /* Increase font-size */
+	padding: 9px 9px 9px 40px; /* Add some padding */
+	border: 1px solid #ddd; /* Add a grey border */
+	margin-bottom: 12px; /* Add some space below the input */
+}
+/*css for table in finding job*/
+.filterable {
+	margin-top: 15px;
+}
+
+	.filterable .panel-heading .pull-right {
+		margin-top: -20px;
+	}
+
+	.filterable .filters input[disabled] {
+		background-color: transparent;
+		border: none;
+		cursor: auto;
+		box-shadow: none;
+		padding: 0;
+		height: auto;
+	}
+
+		.filterable .filters input[disabled]::-webkit-input-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]::-moz-placeholder {
+			color: #333;
+		}
+
+		.filterable .filters input[disabled]:-ms-input-placeholder {
+			color: #333;
+		}

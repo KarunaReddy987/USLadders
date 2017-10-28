@@ -1,49 +1,75 @@
-<% include partials/header %>
+  <% include partials/header %>
 <% include partials/navbar %>
 
 <h1> Update your profile </h1>
-<br>
 
-<body>
-    <div class="Container">
-            <div class="col-md-12">
-<form>
-    Name : <input type ="text"  class="form-control" placeholder="Firstname"> 
-           <input type ="text" class="form-control"  placeholder="Lastname"><br><br>
-    Address : <input type = "text" class="form-control" placeholder="Address"> <br><br>
-    phone Number : <input type="text" class="form-control" ><br><br>
-    Email id :<input = "text" class="form-control"><br><br>
-    Highest Degree : <select name="Highest Degree">
+
+<% if(errors != undefined){ %>
+<ul>
+<% errors.forEach(function(error){ %>
+<li> <%= error.msg %> </li>
+<% }) %>
+</ul>
+
+<% } %>
+
+<form method ="POST" action ="/userprofiles/add" >
+<br>
+<label> First Name </label>
+<input type="text" name="first_name" required class="form-control" placeholder="First Name">
+<br>
+<label> Last Name </label>
+<input type="text" name="last_name" required class="form-control" placeholder="Last Name">
+<br>
+<label> Address </label>
+<textarea name="address" required="required" class="form-control" rows="3" placeholder="Address"></textarea>
+<br>
+<label> Phone Number </label>
+<input type="text" name="phone" required class="form-control" placeholder="6605281976">
+<br>
+    <label> Email Id </label>
+	<input = "text" name="email" required class="form-control" placeholder="Email">
+	<br>
+<label> Highest Degree </label>
+<select name="highest_degree"  class="form-control">
         <option value="Masters">Masters</option>
         <option value="Bachelors">Bachelors</option>
         <option value="Phd">Phd</option>
-    </select><br><br>
-    University : <input type="text" class="form-control" placeholder="Qualificationes/Skills"><br><br>
-    Job Experience : <select class="selectpicker" name="job Experience">
-        <option value="0-1 year">0-1 year</option>
-        <option value="1-3 years">1-3 years</option>
-        <option value="3-5 years">3-5 yeras</option>
-        <option value=">5 years">>5 years</option>
-    </select>
-    <br><br>
-    On opt : <input type="Radio" value="yes" checked>Yes 
-             <input type="Radio" value="No">No
-             <br><br>
-    If Yes select Start Date 
-    <br><br>
+    </select><br>
+	<label> On OPT? </label> 
+	<br>
+<label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" checked value="option1"> Yes
+</label>
+<label class="radio-inline">
+  <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> NO
+</label>
+<br>
+<br>
+<label> Experience </label>
+<br>
+<select name="experience" class="form-control">
+  <option>0-1 yrs</option>
+  <option>1-2 yrs</option>
+  <option>2-3 yrs</option>
+  <option>3-4 yrs</option>
+  <option>More than 4 yrs</option>
+</select>
+<br>
+<label> University </label>
+<input type="text" name="university" required class="form-control" placeholder="University"><br>
 
-    Job Preference : <select lass="selectpicker" name="job Preference">
+<label> Job Preference </label> 
+<select name="job_preference"  class="form-control">
         <option value="Full time/Part time">Full time/Part time</option>
         <option value="Contract">Contract</option>
         <option value="Internship">Internship</option>
-        
     </select>
-    <br><br>
-    <button type = "button" >update</button>
-    <button type = "button" >Cancel</button>
+<br>
+
+<input type= "submit" name="Submit" class="btn btn-success" value="Save">
+ <a href = "/viewProfile" class="btn btn-danger"> Cancel </a>  
+
+
 </form>
-            </div>
-    </div>
-    
-</body>
 <% include partials/footer %>

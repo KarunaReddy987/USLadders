@@ -6,5 +6,32 @@
 
 <body>
 
+
+<% if(errors != undefined){ %>
+<ul>
+<% errors.forEach(function(error){ %>
+<li> <%= error.msg %> </li>
+<% }) %>
+</ul>
+
+<% } %>
+
+
+
+<form method ="POST" action = "/account-change" >
+<br>
+<label> User Name  </label>
+<input type="text" name="user_name" required class="form-control" placeholder="User Name">
+<br>
+<label> Old Password </label>
+<input type="text" name="pass_1" required class="form-control" placeholder=" Old Password">
+<br>
+<label> New Password </label>
+<input  type="text" name= "pass_2" required class="form-control" placeholder=" New Password">
+<br>
+<br>
+<input type= "submit" name="Submit" class="btn btn-success">
+</form>
+
 </body>
 <% include partials/footer %>

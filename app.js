@@ -6,6 +6,7 @@ var expressValidator= require('express-validator');
 var mongojs = require('mongojs');
 var db = mongojs('customerapp', ['jobs']);
 var db1 = mongojs('customerapp', ['users']);
+var db2 = mongojs('customerapp', ['userprofiles']);
 var ObjectId = mongojs.ObjectId;
 var session = require('express-session');
 // Use the session middleware
@@ -90,13 +91,15 @@ app.get('/applyJob', function (req, res) {
 });
 app.get('/findingJob', function (req, res) {
 
-	console.log(req.query);
-	let where = {
-		"job_category": req.query.category || "Accounting",
-		"experience": req.query.expr || "0-1 yrs"
-	};
-	console.log(where);
+	let where = {}; 
+	if (req.query.category != "all" && req.query.category != null) {
+		where.job_category = req.query.category;
+	}
 	
+	if (req.query.expr != "any" && req.query.expr != null) {
+		where.experience = req.query.expr;
+	}
+	console.log(where);
 	db.jobs.find(where, function (err, docs) {
 		if (!err) {
 			res.render('findingJob', {
@@ -130,16 +133,16 @@ app.get('/sampleResumes', function(req,res){
 });
 
 app.get('/coverLetters', function(req,res){
-		res.render('coverLetters',{
-			title:'USLadders'
-		});
-		});
+	res.render('coverLetters',{
+		title:'USLadders'
+	});
+});
 	
 
 app.get('/sampleResumeStudent', function(req,res){
-			res.render('sampleResumeStudent',{
-				title:'USLadders'
-			});
+	res.render('sampleResumeStudent',{
+		title:'USLadders'
+	});
 });
 
 app.get('/logout', function (req, res) {
@@ -243,7 +246,6 @@ app.post('/jobs/add', function(req,res){
 		req.checkBody('contact_details', 'Contact are required').notEmpty();
 
 
-
 	var errors = req.validationErrors();
 
 	if(errors){
@@ -294,11 +296,120 @@ app.get('/accountSettings', function (req, res) {
         title: 'USLadders'
     });
 });
-app.get('/updateProfile', function (req, res) {
-    res.render('updateProfile', {
-        title: 'USLadders'
-    });
+
+
+app.post('/account-change', function (req, res) {
+	req.checkBody('user_name', 'User Name is required').notEmpty();
+	req.checkBody('pass_1', 'Present password is required').notEmpty();
+	req.checkBody('pass_2', 'New password is required').notEmpty();
+	var errors = req.validationErrors();
+
+	if (errors) {
+		res.render('accountSettings', {
+			title: 'Customers',
+
+			errors: errors
+		});
+		console.log('kajsck');
+	}
+	else {
+		var username = req.body.user_name;
+		var password = req.body.pass_1;
+		var password_new = req.body.pass_2;
+
+
+		db1.users.update({ "username": username }, { $set: { "password": password_new } }, function (err, result) {
+			var errors = req.validationErrors();
+			if (errors) {
+				res.render('accountSettings', {
+					title: 'CustomerApp',
+					errors: errors
+
+				});
+			}
+			else {
+				if (result !== null) {
+
+					console.log("Change Successful");
+					res.redirect('/accountSettings');
+				}
+				else {
+					res.send("Invalid Credentials :-(");
+				}
+			}
+		});
+
+	}
+
+
 });
+
+
+app.get('/updateProfile', function (req, res) {
+	db2.userprofiles.find(function (err, docs) {
+		if (!err) {
+			res.render('updateProfile', {
+				title: 'USLadders',
+				userprofiles: docs
+			});
+		}
+		else {
+
+		}
+	})
+});
+
+app.post('/userprofiles/add', function(req,res){
+
+	req.checkBody('first_name', 'First Name is required').notEmpty();
+	req.checkBody('last_name', 'Last Name is required').notEmpty();
+	req.checkBody('address', 'Email is required').notEmpty();
+	req.checkBody('phone', 'Category is required').notEmpty();
+	req.checkBody('email', 'Description is required').notEmpty();
+	req.checkBody('highest_degree', 'Qualifications are required').notEmpty();
+	req.checkBody('experience', 'Experience is required').notEmpty();
+	req.checkBody('inlineRadioOptions', 'Contact are required').notEmpty();
+	req.checkBody('university', 'Contact are required').notEmpty();
+	req.checkBody('job_preference', 'Contact are required').notEmpty();
+
+
+
+	var errors = req.validationErrors();
+
+	if(errors){
+        res.render('updateProfile', {
+		title: 'Customers',
+		userprofiles: userprofiles,
+		errors:errors
+	});
+}
+	else{
+		var newUser1 = {
+			first_name: req.body.first_name,
+			last_name: req.body.last_name,
+			address: req.body.address,
+			phone: req.body.phone,
+			email: req.body.email,
+			highest_degree: req.body.highest_degree,
+			inlineRadioOptions: req.body.inlineRadioOptions,
+			experience: req.body.experience,
+			university: req.body.university,
+			job_preference: req.body.job_preference
+
+		}
+
+		db2.userprofiles.insert(newUser1,function (err,result) {
+	if(err){
+		console.log(err);
+	}
+	else{
+		res.redirect('/viewProfile');
+	}
+})
+	}
+
+	});    
+
 
 app.get('/jobsApplied', function (req, res) {
     res.render('jobsApplied', {
@@ -320,6 +431,21 @@ app.get('/jobsPosted', function (req, res) {
 });
 
 
-app.listen(3002, function(){
+app.get('/viewProfile', function (req, res) {
+	db2.userprofiles.find(function (err, profiles) {
+		if (!err) {
+			res.render('viewProfile', {
+				title: 'USLadders',
+				userprofiles: profiles
+			});
+		}
+		else {
+
+		}
+	})
+});
+
+
+app.listen(3000, function(){
 	console.log('Express started');
 });

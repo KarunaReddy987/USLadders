@@ -66,16 +66,7 @@
 <input type= "submit" name="Submit" class="btn btn-success">
 </form>
 
-<ul>
-<% jobs.forEach(function(job){ %>
-<li> Company: <%= job.company_name %> <br> Company ID: <%=job.company_id %> <br> Employee Name: <%=job.employee_name %> 
-<br> Job Category: <%= job.job_category %> <br> Job Description: <%=job.job_description %> 
-<br> Qualifications required: <%=job.qualifications %>  <br> Experience Required: <%=job.experience %>
-<br> Contact Details: <%=job.contact_details %>
 
-<br> Click here to delete this Job - <a href = "postingJob" class="deleteUser" data-id="<%= job._id %>" > Delete </a> </li> <br> <br>
-<% }) %>
-</ul>
 
 
 <% include partials/footer %>
