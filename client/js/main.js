@@ -51,7 +51,7 @@ $(function () {
 
     // Instantiate the Bootstrap carousel
 
- 
+
 
 
     // for every slide in carousel, copy the next slide's item in the slide.
@@ -85,7 +85,31 @@ $(function () {
 			alert("both the password should match");
 			console.log("Not equal");
 		} else {
-			
+
 		}
 
 });
+
+// see  more
+$(document).ready(function () {
+	
+		$('.star').on('click', function () {
+		  $(this).toggleClass('star-checked');
+		});
+	
+		$('.ckbox label').on('click', function () {
+		  $(this).parents('tr').toggleClass('selected');
+		});
+	
+		$('.btn-filter').on('click', function () {
+		  var $target = $(this).data('target');
+		  if ($target != 'all') {
+			$('.table tr').css('display', 'none');
+			$('.table tr[data-status="' + $target + '"]').fadeIn('slow');
+		  } else {
+			$('.table tr').css('display', 'none').fadeIn('slow');
+		  }
+		});
+	
+	 });
+	

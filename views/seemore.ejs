@@ -1,0 +1,177 @@
+<% include partials/header %>
+<% include partials/navbar %>
+
+<h1> Companies </h1><hr>
+<body>
+  <div class="container">
+  	<div class="row">
+      <div class="col-md-2 ">
+        <div class="btn-group">
+          <button type="button" class="btn btn-success btn-filter" data-target="five" style="width:150px;">☆☆☆☆☆</button><br><br>
+          <button type="button" class="btn btn-warning btn-filter" data-target="four" style="width:150px;">☆☆☆☆ </button><br><br>
+          <button type="button" class="btn btn-danger btn-filter" data-target="three" style="width:150px;">☆☆☆</button><br><br>
+          <button type="button" class="btn btn-info btn-filter" data-target="two" style="width:150px;">☆☆</button><br><br>
+          <button type="button" class="btn btn-primary btn-filter" data-target="one" style="width:150px;">☆</button><br><br>
+
+          <button type="button" class="btn btn-default btn-filter" data-target="all" style="width:150px;">All      </button><br><br>
+        </div></div>
+  		<section class="content1">
+
+  			<div class="col-md-10 ">
+  				<div class="panel panel-default">
+  					<div class="panel-body">
+              <div class="pull-right">
+							<!-- <div class="btn-group">
+								<button type="button" class="btn btn-success btn-filter" data-target="five">☆☆☆☆☆</button>
+								<button type="button" class="btn btn-warning btn-filter" data-target="four">☆☆☆☆</button>
+								<button type="button" class="btn btn-danger btn-filter" data-target="three">☆☆☆</button>
+								<button type="button" class="btn btn-default btn-filter" data-target="all">All</button>
+							</div> -->
+						</div>
+
+  						<div class="table-container">
+  							<table class="table table-filter">
+  								<tbody>
+  									<tr data-status="five">
+
+  										<td>
+  											<div class="media">
+  												<a href="https://careers.microsoft.com/search.aspx" class="pull-left">
+  													<img src="\assets\microsoft.png" class="media-photo">
+                             </a>
+  												<div class="media-body">
+  													<span class="media-meta">Microsoft</span>
+  													<h4 class="title">
+  														Established: 1975
+
+  													</h4>
+  													<p class="summary">Microsoft Corporation is an American multinational technology company with headquarters in Redmond, Washington. It develops, manufactures, licenses, supports and sells computer software, consumer electronics, personal computers, and services.</p>
+  												</div>
+  											</div>
+  										</td>
+  									</tr>
+                    <tr data-status="two">
+
+  										<td>
+  											<div class="media">
+  												<a href="https://www.amazon.jobs/" class="pull-left">
+  													<img src="\assets\amazon.jpg" class="media-photo">
+  												</a>
+  												<div class="media-body">
+  													<span class="media-meta ">Amazon</span>
+  													<h4 class="title">
+  														Established: 1994
+
+  													</h4>
+  													<p class="summary">Amazon.com, Inc., doing business as Amazon, is an American electronic commerce and cloud computing company based in Seattle, Washington that was founded by Jeff Bezos.</p>
+  												</div>
+  											</div>
+  										</td>
+  									</tr>
+                    <tr data-status="five">
+
+  										<td>
+  											<div class="media">
+  												<a href="https://www.apple.com/jobs/us/" class="pull-left">
+  													<img src=" \assets\apple.png" class="media-photo">
+  												</a>
+  												<div class="media-body">
+  													<span class="media-meta ">Apple</span>
+  													<h4 class="title">
+  														Established: 1976
+
+  													</h4>
+  													<p class="summary">Apple Inc. is an American multinational technology company headquartered in Cupertino, California that designs, develops, and sells consumer electronics, computer software, and online services. </p>
+  												</div>
+  											</div>
+  										</td>
+  									</tr>
+  									<tr data-status="four">
+
+  										<td>
+  											<div class="media">
+  												<a href="https://www.cerner.com/" class="pull-left">
+  													<img src="\assets\cerner.png" class="media-photo">
+  												</a>
+  												<div class="media-body">
+  													<span class="media-meta ">Cerner</span>
+  													<h4 class="title">
+  														Established: 1979
+
+  													</h4>
+  													<p class="summary">Cerner Corporation is an American supplier of health information technology solutions, services, devices and hardware.</p>
+  												</div>
+  											</div>
+  										</td>
+  									</tr>
+  									<tr data-status="one">
+
+  										<td>
+  											<div class="media">
+  												<a href="http://www.werner.com/" class="pull-left">
+  													<img src="\assets\werner.jpg" class="media-photo">
+  												</a>
+  												<div class="media-body">
+  													<span class="media-meta" >Werner</span>
+  													<h4 class="title">
+  														Established: 1956
+
+  													</h4>
+  													<p class="summary">Werner Enterprises, Inc. is an American freight carrier and transportation and logistics company headquartered in Omaha, Nebraska.</p>
+  												</div>
+  											</div>
+  										</td>
+  									</tr>
+  									<tr data-status="three">
+
+  										<td>
+  											<div class="media">
+  												<a href="https://www.tcs.com/" class="pull-left">
+  													<img src="\assets\tcs-logo-300x300.jpg" class="media-photo">
+  												</a>
+  												<div class="media-body">
+  													<span class="media-meta ">TCS</span>
+  													<h4 class="title">
+  														Established: 1968
+
+  													</h4>
+  													<p class="summary">Tata Consultancy Services Limited is an Indian multinational information technology service, consulting and business solutions company Headquartered in Mumbai, Maharashtra.</p>
+  												</div>
+  											</div>
+  										</td>
+  									</tr>
+  									<tr data-status="four">
+
+  										<td>
+  											<div class="media">
+  												<a href="https://h30631.www3.hp.com/" class="pull-left">
+  													<img src="\assets\hp.png" class="media-photo">
+  												</a>
+  												<div class="media-body">
+  													<span class="media-meta">HP</span>
+  													<h4 class="title">
+  														Established: 1939
+  													</h4>
+  													<p class="summary">The Hewlett-Packard Company or shortened to Hewlett-Packard was an American multinational information technology company headquartered in Palo Alto, California.</p>
+  												</div>
+  											</div>
+  										</td>
+  									</tr>
+  								</tbody>
+  							</table>
+  						</div>
+  					</div>
+  				</div>
+  				<!-- <div class="content-footer">
+  					<p>
+  						Page © - 2017 <br>
+  						Powered By <a href="/about" target="_self">Desinedores</a>
+  					</p>
+  				</div> -->
+  			</div>
+  		</section>
+
+  	</div>
+  </div>
+</body>
+<% include partials/footer %>

@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 
 app.use(function(req,res,next){
-	res.locals.errors = null;	
+	res.locals.errors = null;
 	res.locals.user = req.session.user;
 	next();
 });
@@ -84,6 +84,12 @@ res.render('about',{
 	title:'USLadders'
 });
 });
+
+app.get('/seemore', function (req, res) {
+res.render('seemore',{
+	title:'USLadders'
+});
+});
 app.get('/applyJob', function (req, res) {
 	res.render('applyJob', {
 		title: 'USLadders'
@@ -91,11 +97,11 @@ app.get('/applyJob', function (req, res) {
 });
 app.get('/findingJob', function (req, res) {
 
-	let where = {}; 
+	let where = {};
 	if (req.query.category != "all" && req.query.category != null) {
 		where.job_category = req.query.category;
 	}
-	
+
 	if (req.query.expr != "any" && req.query.expr != null) {
 		where.experience = req.query.expr;
 	}
@@ -137,7 +143,7 @@ app.get('/coverLetters', function(req,res){
 		title:'USLadders'
 	});
 });
-	
+
 
 app.get('/sampleResumeStudent', function(req,res){
 	res.render('sampleResumeStudent',{
@@ -408,7 +414,7 @@ app.post('/userprofiles/add', function(req,res){
 })
 	}
 
-	});    
+	});
 
 
 app.get('/jobsApplied', function (req, res) {
@@ -446,6 +452,6 @@ app.get('/viewProfile', function (req, res) {
 });
 
 
-app.listen(3000, function(){
+app.listen(3002, function(){
 	console.log('Express started');
 });

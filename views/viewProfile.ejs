@@ -1,22 +1,172 @@
   <% include partials/header %>
 <% include partials/navbar %>
 
-<h1> Update your profile </h1>
-<form class="form-horizontal">
-    <fieldset>
-        <legend> Profile </legend>    
-        <div class="control-group">
+<h1> View profile </h1>
+
+        <div class="container bootstrap snippet">
+        <div class="panel-body inf-content">
+            <div class="row">
+
+&nbsp;
+&nbsp;
+                <div class="col-md-3">
+
+
+
+                    <img alt="" style="width:200px;" title="" class="img-circle img-thumbnail isTooltip" src="\assets\apple.png" data-original-title="Usuario">
+
+                </div>
+
+                    <strong>Information</strong><br>
+                    <div class="col-md-6">
+                    <div class="table-responsive">
+                    <table class="table table-condensed table-responsive table-user-information">
+                        <tbody>
+                          <% userprofiles.forEach(function(profile){ %>
+
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-user  text-primary"></span>
+                                    First Name
+                                    </strong>
+                                </td>
+                                <td class="text-primary">
+                                    <%= profile.first_name %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-user text-primary"></span>
+                                        Last Name
+                                    </strong>
+                                </td>
+                                <td class="text-primary">
+                                    <%= profile.last_name %>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-bookmark text-primary"></span>
+                                        Username
+                                    </strong>
+                                </td>
+                                <td class="text-primary">abhinave/
+                                    <!-- <%= profile.user_name %> -->
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-home text-primary"></span>
+                                        Address
+                                    </strong>
+                                </td>
+                                <td class="text-primary">
+                                  <%= profile.address %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-envelope text-primary"></span>
+                                        Email
+                                    </strong>
+                                </td>
+                                <td class="text-primary">
+                                    <%= profile.email %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-book text-primary"></span>
+                                        Highest Degree
+                                    </strong>
+                                </td>
+                                <td class="text-primary">
+                                    <%= profile.highest_degree %>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                        Experience
+                                    </strong>
+                                </td>
+                                <td class="text-primary">
+                                     <%= profile.experience %>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <strong>
+                                        <span class="glyphicon glyphicon-calendar text-primary"></span>
+                                        University
+                                    </strong>
+                                </td>
+                                <td class="text-primary">
+                                     <%= profile.university %>
+                                </td>
+
+                            </tr>
+
+<% }) %>
+                        </tbody>
+
+                    </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        </div>
+        <a href = "/updateProfile" class="btn btn-primary pull-right" style="width:150px;">Edit Profile</a><br><br>
+
+        <a href = "/updateProfile" class="btn btn-primary pull-right" style="width:150px;">Edit Picture</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- <div class="control-group">
             <label class="control-label">Readonly Field</label>
             <div class="controls">
 
 			<% userprofiles.forEach(function(profile){ %>
-               <%= profile.first_name %> 
+        <h4> <b> First Name: </b>   <%= profile.first_name %>  </h4>
+<h4> <b> Last Name: </b>   <%= profile.last_name %>  </h4>
+<h4> <b> Address: </b>   <%= profile.address %>  </h4>
+<h4> <b> Phone: </b>   <%= profile.phone %>  </h4>
+<h4> <b> Email: </b>   <%= profile.email %>  </h4>
+<h4> <b> Highest Degree: </b>   <%= profile.highest_degree %>  </h4>
+<h4> <b> Exerience: </b>   <%= profile.experience %>  </h4>
+<h4> <b> University: </b>   <%= profile.university %>  </h4>
+<h4> <b> Job Preferrence: </b>   <%= profile.job_preference %>  </h4>
             </div>
         </div>
     </fieldset>
 	<% }) %>
-</form>
+</form> -->
 
- <a href = "/updateProfile" class="btn btn-success"> EditProfile </a>  
+ <!-- <a href = "/updateProfile" class="btn btn-success"> EditProfile </a> -->
 
 <% include partials/footer %>
