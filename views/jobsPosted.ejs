@@ -29,6 +29,7 @@ th, td {
     <tbody>
       <tr>
   <% jobs.forEach(function(job){ %>
+  <% if(user.username == job.user_name  ) {%>
   <td> <%=job.company_name %> </td>
   <td> <%= job.job_category %> </td>
   <td> <%=job.job_description %> </td>
@@ -41,6 +42,7 @@ th, td {
   <br> Contact Details: <%=job.contact_details %> -->
 
   <!-- <br> Click here to delete this Job - <a href = "postingJob" class="deleteUser" data-id="<%= job._id %>" > Delete </a> </li> <br> <br> -->
+  <%} %>
   <% }) %>
 </tbody>
 </table>

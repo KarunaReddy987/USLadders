@@ -1,6 +1,8 @@
 {
   "ExpandedNodes": [
     "",
+    "\\client",
+    "\\client\\js",
     "\\views",
     "\\views\\partials"
   ],

@@ -88,7 +88,9 @@ function load() {
 												<th><input type="text" class="form-control" placeholder="Qualification" disabled></th>
 												<th><input type="text" class="form-control" placeholder="Experience" disabled></th>
 												<th><input type="text" class="form-control" placeholder="Contact" disabled></th>
+												<% if(user){ %>
 												<th> Apply</th>
+												<% } %>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,8 +104,10 @@ function load() {
 											<td><%=job.qualifications %></td>
 											<td><%=job.experience %></td>
 											 <td> <%=job.contact_details %></td>
-											<td><button type= "button" class="btn btn-primary btn-md"><a href = "applyJob" > <span style="color:white">Apply </span></a> </button></td>
 
+<% if(user){ %>
+											<td><button type= "button" class="btn" id = "<%=job._id%>"> <span style="color:white">Apply </span></a> </button></td>
+<% } %>
                     </tr>
                     <% }) %>
                 </tbody>
@@ -119,3 +123,4 @@ function load() {
 $("#cat").val("<%= where.job_category || "all" %>");
 $("#exp").val("<%= where.experience || "any" %>");
 </script>
+<script src="/js/main.js"></script>

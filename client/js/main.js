@@ -28,6 +28,120 @@ $(function () {
 			return false;
 		}
     }
+	$(document).ready(function () {
+		$('.btn').on('click', applyForJob);
+	});
+
+	function applyForJob(evt) {
+		var confirmation = confirm('Are you Sure?');
+		console.log(evt);
+		if (confirmation) {
+			$.ajax({
+				type: 'GET',
+				url: '/jobs/apply/' + evt.currentTarget.id
+			}).done(function (response) {
+
+				window.location.replace('/applyJob/' + evt.currentTarget.id);
+				response.write("<h2><em>evt.currentTarget.id</em></h2>");
+				console.log(url);
+			});
+
+			//  window.location.replace('/about');
+
+		}
+
+		else {
+			return false;
+		}
+	}
+
+
+
+	$('.doc').on('click', docupload);
+	$('.docCV').on('click', docCVupload);
+
+
+	function docupload(evt) {
+		var confirmation = confirm('Are you Sure?');
+		var myForm = document.getElementById('myResume');
+		formData = new FormData(myForm);
+
+		console.log(formData);
+		//console.log(evt);
+		if (confirmation) {
+			$.ajax({
+				type: 'POST',
+				url: '/upload/resume/' + evt.currentTarget.id,
+				data: formData,
+				contentType: false,
+				processData: false
+			}).done(function (response) {
+
+				//window.location.replace('/applyJob/' + evt.currentTarget.id);
+				//response.write("<h2><em>evt.currentTarget.id</em></h2>");
+				if (response.success) {
+					//alert("Resume Upload Success :)");
+					$("#resumeUpldStatus").html("Resume Uploaded successfully");
+				}
+				else {
+					//alert("Resume Upload Failed :(");
+					$("#resumeUpldStatus").html("Resume Uploaded failed");
+					console.log(response.err);
+				}
+				console.log(url);
+			});
+
+			//  window.location.replace('/about');
+
+		}
+
+		else {
+			return false;
+		}
+	}
+
+	function docCVupload(evt) {
+		var confirmation = confirm('Are you Sure?');
+		var myForm = document.getElementById('myCV');
+		formData = new FormData(myForm);
+
+		console.log(formData);
+		//console.log(evt);
+		if (confirmation) {
+			$.ajax({
+				type: 'POST',
+				url: '/upload/cv/' + evt.currentTarget.id,
+				data: formData,
+				contentType: false,
+				processData: false
+			}).done(function (response) {
+
+				//window.location.replace('/applyJob/' + evt.currentTarget.id);
+				//response.write("<h2><em>evt.currentTarget.id</em></h2>");
+				if (response.success) {
+					//alert("Resume Upload Success :)");
+					$("#cvUpldStatus").html("Cover Letter Uploaded successfully");
+				}
+				else {
+					//alert("Resume Upload Failed :(");
+					$("#cvUpldStatus").html("Cover Letter Uploaded failed");
+					console.log(response.err);
+				}
+
+			});
+
+			//  window.location.replace('/about');
+
+		}
+
+		else {
+			return false;
+		}
+	}
+
+
+
+
 
 	$(function () {
 

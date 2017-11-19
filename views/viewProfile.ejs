@@ -1,8 +1,7 @@
   <% include partials/header %>
 <% include partials/navbar %>
 
-<h1> View profile </h1>
-
+<h1><b> <%= user.username %> 's Profile </b> </h1>
         <div class="container bootstrap snippet">
         <div class="panel-body inf-content">
             <div class="row">
@@ -54,8 +53,8 @@
                                         Username
                                     </strong>
                                 </td>
-                                <td class="text-primary">abhinave/
-                                    <!-- <%= profile.user_name %> -->
+                                <td class="text-primary">
+                                    <%= user.username %>
                                 </td>
                             </tr>
 

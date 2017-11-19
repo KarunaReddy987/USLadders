@@ -3,22 +3,57 @@
 
 <h1> Apply for the job </h1>
 
-<form method ="POST" action = "/applications/add" >
-<form ref='uploadForm' class="form" 
-      id='uploadForm' 
-      action='http://localhost:8000/upload' 
-      method='post' 
-      encType="multipart/form-data">
-        <input type="file" name="sampleFile " /> <br>
-        <input type='submit' value="Upload Resume" />
-    </form>   
-	<br>
-	<br>
-<input type= "submit" name="Submit" class="btn btn-success" value="Apply">
-<input type= "submit" name="Cancel" class="btn btn-danger" value="Cancel"> 
 
+<h4>
+
+  <% jobs.forEach(function(job){ %>
+
+					Company Name : <%= job.company_name %>
+					<br>
+					Job Description : <%=job.job_description %>
+					<br>
+					Qualifications Required : <%=job.qualifications %>
+
+
+                    <% }) %>
+
+
+
+</h4>
+<div class="row">
+  <div class="col-md-6">
+
+
+
+
+
+<label>Resume</label>
+<form  method="post" id="myResume" enctype="multipart/form-data" action = "/upload/resume/<%= wher.ide %>"  >
+      <input type="file" name="resume"><br>
+
+
+
+
+      <input type="button" class="doc" name = "Upload" id="<%= wher.ide %>"  value = "fileupload"><br/>
+	  <span id="resumeUpldStatus"></span>
 </form>
+</div>
+<div class="col-md-6">
+<label>Cover Letter</label>
+<form  method="post" id="myCV" enctype="multipart/form-data" action = "/upload/cv/<%= wher.ide %>"  >
+      <input type="file" name="cv"><br>
 
+
+
+      <input type="button" class="docCV" name = "Upload" id="<%= wher.ide %>"  value = "fileupload"><br/>
+	  <span id="cvUpldStatus"></span>
+</form>
+</div>
+
+<script>
+$("#jobID").val("<%= wher.ide %>");
+</script>
+<script src="/js/main.js"></script>
 
 
 

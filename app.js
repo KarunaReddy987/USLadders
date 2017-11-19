@@ -9,8 +9,15 @@ var db1 = mongojs('customerapp', ['users']);
 var db2 = mongojs('customerapp', ['userprofiles']);
 var ObjectId = mongojs.ObjectId;
 var session = require('express-session');
+var formidable = require('formidable');
+var multer = require('multer');
+var upload = require("express-fileupload");
+var fs = require('fs');
+app.use(upload());
+
+
 // Use the session middleware
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 360000 } }))
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 36000000000000 } }))
 
 //Body parser middleware
 app.use(bodyParser.json());
@@ -91,10 +98,102 @@ res.render('seemore',{
 });
 });
 app.get('/applyJob', function (req, res) {
-	res.render('applyJob', {
-		title: 'USLadders'
+
+
+	res.sendFile(__dirname + "/views");
+});
+
+
+app.get('/applyJob/:id', function (req, res) {
+	let wher = {};
+
+	db.jobs.findOne({ _id: ObjectId(req.params.id) }, function (err, result) {
+		wher.ide = ObjectId(req.params.id);
+
+
+		console.log(wher);
+		db.jobs.find({ _id: wher.ide }, function (err, docs) {
+			if (!err) {
+				res.render('applyJob', {
+					title: 'USLadders',
+					jobs: docs, wher: wher
+				});
+			}
+			else {
+
+			}
+		})
+
+
 	});
 });
+
+app.post("/upload/resume/:id", multer({ dest: './uploads/' }).single('upl'), function (req, res) {
+	console.log("reddy");
+	if (req.files) {
+		var file = req.files.resume;
+		var filename = file.name;
+		file.mv("./client/upload/" + filename, function (err) {
+			if (err) {
+				console.log(err)
+				res.send({ success: false, err: err });
+			}
+			else {
+				res.send({ success: true });
+			}
+		}
+		)
+	}
+});
+
+
+
+app.post("/upload/cv/:id", multer({ dest: './uploads/' }).single('upl'), function (req, res) {
+	console.log("reddy");
+	if (req.files) {
+		var file = req.files.cv;
+		var filename = file.name;
+		file.mv("./client/upload/" + filename, function (err) {
+			if (err) {
+				console.log(err)
+				res.send({ success: false, err: err });
+			}
+			else {
+				res.send({ success: true });
+			}
+		}
+		)
+	}
+});
+
+
+app.post('/applications/add', function (req, res) {
+
+	req.checkBody('jobID', 'JobID is required').notEmpty();
+	req.checkBody('myResume', 'Resume is required').notEmpty();
+	req.checkBody('myCV', 'CV is required').notEmpty();
+
+	var errors = req.validationErrors();
+
+	if (errors) {
+		res.render('applyJob', {
+			title: 'Customers',
+			jobs: jobs,
+			errors: errors
+		});
+	}
+	else {
+		var newUser = {
+			jobID: req.body.jobID,
+			myResume: req.body.myResume,
+			myCV: req.body.myCV
+
+
+		}
+	}
+});
+
+
 app.get('/findingJob', function (req, res) {
 
 	let where = {};
@@ -245,6 +344,8 @@ app.post('/jobs/add', function(req,res){
 	req.checkBody('company_name', 'First Name is required').notEmpty();
 	req.checkBody('company_id', 'Last Name is required').notEmpty();
 	req.checkBody('employee_name', 'Email is required').notEmpty();
+	req.checkBody('user_name', 'Email is required').notEmpty();
+
 	req.checkBody('job_category', 'Category is required').notEmpty();
 		req.checkBody('job_description', 'Description is required').notEmpty();
 		req.checkBody('qualifications', 'Qualifications are required').notEmpty();
@@ -270,8 +371,8 @@ app.post('/jobs/add', function(req,res){
 		job_category: req.body.job_category,
 		qualifications: req.body.qualifications,
 		experience: req.body.experience,
-		contact_details: req.body.contact_details
-
+		contact_details: req.body.contact_details,
+		user_name: req.body.user_name
 		}
 
 db.jobs.insert(newUser,function (err,result) {
