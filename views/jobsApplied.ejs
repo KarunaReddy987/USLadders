@@ -5,6 +5,38 @@
 <br>
 
 <body>
+  <% userApplications.forEach(function(job){ %>
+  <% if(user.username == job.user_name  ) {%>
+   <%=job.jobID %>
+   <br>
+<%=job.resumeLink %>
+ <br>
+
+<% jobdetails.forEach(function(jobDetail){ %>
+
+
+ <% if( job.jobID = jobDetail._id  ) {%>
+
+
+ <%=jobDetail.company_name %>
+  <br>
+   <%= jobDetail.job_category %>
+    <br>
+ <%=jobDetail.job_description %>
+  <br>
+  <% } %>
+<% }) %>
+<% } %>
+ <% }) %>
 
 </body>
 <% include partials/footer %>
+
+
+
+
+<script>
+$("#JOBID").val("<%= values.JOBID %>");
+
+
+</script>

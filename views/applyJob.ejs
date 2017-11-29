@@ -4,15 +4,25 @@
 <h1> Apply for the job </h1>
 
 
+
+<label> User Name </label>
+<input  type="text" name= "user_name" required class="form-control" value = "<%= user.username %>" readonly>
+<br>
+<label> Job ID </label>
+<input  type="text" name= "jobID" required class="form-control" value = "<%= wher.ide %>" readonly>
+<br>
+
 <h4>
 
   <% jobs.forEach(function(job){ %>
 
-					Company Name : <%= job.company_name %>
+					<label>Company Name : <%= job.company_name %>
 					<br>
+
+					<label>Job Title : <%=job.job_title %>
+          <br>
 					Job Description : <%=job.job_description %>
-					<br>
-					Qualifications Required : <%=job.qualifications %>
+
 
 
                     <% }) %>
@@ -38,6 +48,7 @@
 	  <span id="resumeUpldStatus"></span>
 </form>
 </div>
+
 <div class="col-md-6">
 <label>Cover Letter</label>
 <form  method="post" id="myCV" enctype="multipart/form-data" action = "/upload/cv/<%= wher.ide %>"  >
@@ -47,14 +58,23 @@
 
       <input type="button" class="docCV" name = "Upload" id="<%= wher.ide %>"  value = "fileupload"><br/>
 	  <span id="cvUpldStatus"></span>
-</form>
 </div>
-
+</div>
+</form>
+<form method = "POST" action = "/applications/add/<%= wher.ide %>">
+<% if(user){ %>
+<input type= "submit" class="btn-application" name="btn-application"  id="<%= wher.ide %>" value = "Submit Application">
+<% } %>
+</form>
 <script>
 $("#jobID").val("<%= wher.ide %>");
-</script>
-<script src="/js/main.js"></script>
 
+
+</script>
+
+
+
+<script src="/js/main.js"></script>
 
 
 <% include partials/footer %>

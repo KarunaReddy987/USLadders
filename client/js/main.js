@@ -22,20 +22,19 @@ $(function () {
 			}).done(function (response) {
 				window.location.replace('/');
 			});
-			window.location.replace('/');
 
 		} else {
 			return false;
 		}
     }
 	$(document).ready(function () {
-		$('.btn').on('click', applyForJob);
+		$('.btn-apply').on('click', applyForJob);
 	});
 
 	function applyForJob(evt) {
-		var confirmation = confirm('Are you Sure?');
+		//var confirmation = confirm('Are you Sure?');
 		console.log(evt);
-		if (confirmation) {
+		//if (confirmation) {
 			$.ajax({
 				type: 'GET',
 				url: '/jobs/apply/' + evt.currentTarget.id
@@ -48,14 +47,38 @@ $(function () {
 
 			//  window.location.replace('/about');
 
-		}
+		//}
 
-		else {
-			return false;
-		}
+		// else {
+		// 	return false;
+		// }
 	}
 
+    $(document).ready(function () {
+        $('.btn-application').on('click', applicationForJob);
+    });
 
+    function applicationForJob(evt) {
+      //  var confirmation = confirm('Are you Sure?');
+        //console.log(evt);
+        //if (confirmation) {
+            $.ajax({
+                type: 'GET',
+                url: '/applications/add/' + evt.currentTarget.id
+            }).done(function (response) {
+                console.log("karuna gangidi");
+                window.location.replace('/applications/add/' + evt.currentTarget.id);
+
+            });
+
+            //  window.location.replace('/about');
+
+        // }
+        //
+        // else {
+        //     return false;
+        // }
+    }
 
 	$('.doc').on('click', docupload);
 	$('.docCV').on('click', docCVupload);
@@ -88,7 +111,7 @@ $(function () {
 					$("#resumeUpldStatus").html("Resume Uploaded failed");
 					console.log(response.err);
 				}
-				console.log(url);
+
 			});
 
 			//  window.location.replace('/about');
@@ -206,15 +229,15 @@ $(function () {
 
 // see  more
 $(document).ready(function () {
-	
+
 		$('.star').on('click', function () {
 		  $(this).toggleClass('star-checked');
 		});
-	
+
 		$('.ckbox label').on('click', function () {
 		  $(this).parents('tr').toggleClass('selected');
 		});
-	
+
 		$('.btn-filter').on('click', function () {
 		  var $target = $(this).data('target');
 		  if ($target != 'all') {
@@ -224,6 +247,5 @@ $(document).ready(function () {
 			$('.table tr').css('display', 'none').fadeIn('slow');
 		  }
 		});
-	
+
 	 });
-	

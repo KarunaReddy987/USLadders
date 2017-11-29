@@ -14,7 +14,7 @@
 <% } %>
 <form method ="POST" action = "/jobs/add" >
 <% if(!user){ %>
-<h3> <b> Please Login to Post a Job </b> </h3> 				
+<h3> <b> Please Login to Post a Job </b> </h3>
 					<% } %>
 <br>
 <label> Company Name  </label>
@@ -23,8 +23,11 @@
 <label> Company ID </label>
 <input type="text" name="company_id" required class="form-control" placeholder="Company ID">
 <br>
-<label> Employee Name </label>
-<input  type="text" name= "employee_name" required class="form-control" placeholder="Employee Name">
+<label> Employer Name </label>
+<input  type="text" name= "employee_name" required class="form-control" placeholder="Employer Name">
+<br>
+<label> Job Title </label>
+<input  type="text" name= "job_title" required class="form-control" placeholder=" Job Title">
 <br>
 <label> User Name </label>
 <input  type="text" name= "user_name" required class="form-control" value = "<%= user.username %>" readonly>

@@ -7,12 +7,15 @@ var mongojs = require('mongojs');
 var db = mongojs('customerapp', ['jobs']);
 var db1 = mongojs('customerapp', ['users']);
 var db2 = mongojs('customerapp', ['userprofiles']);
+var db3 = mongojs('customerapp', ['userApplication']);
 var ObjectId = mongojs.ObjectId;
 var session = require('express-session');
 var formidable = require('formidable');
 var multer = require('multer');
 var upload = require("express-fileupload");
 var fs = require('fs');
+
+
 app.use(upload());
 
 
@@ -97,10 +100,29 @@ res.render('seemore',{
 	title:'USLadders'
 });
 });
+
+
 app.get('/applyJob', function (req, res) {
 
 
 	res.sendFile(__dirname + "/views");
+});
+
+
+app.get('/jobs/apply/:id', function (req, res) {
+    console.log('karuna');
+    db.jobs.findOne({ _id: ObjectId(req.params.id) }, function (err, result) {
+        var id = ObjectId(req.params.id);
+
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.send("<center><h1>User Already Exists :-( </h1></center>");
+            console.log(id);
+
+        }
+    });
 });
 
 
@@ -127,33 +149,40 @@ app.get('/applyJob/:id', function (req, res) {
 
 	});
 });
-
+let resumeLink;
 app.post("/upload/resume/:id", multer({ dest: './uploads/' }).single('upl'), function (req, res) {
-	console.log("reddy");
-	if (req.files) {
-		var file = req.files.resume;
-		var filename = file.name;
-		file.mv("./client/upload/" + filename, function (err) {
-			if (err) {
-				console.log(err)
-				res.send({ success: false, err: err });
-			}
-			else {
-				res.send({ success: true });
-			}
-		}
-		)
-	}
+    console.log("resume");
+
+                if (req.files) {
+                    var file = req.files.resume;
+                    var filename = file.name;
+                    resumeLink = "./client/upload/resume/" + filename;
+                    file.mv("./client/upload/resume/" + filename, function (err) {
+                        if (err) {
+                            console.log(err)
+                            res.send({ success: false, err: err });
+                        }
+                        else {
+                            res.send({ success: true });
+                        }
+                    }
+                    )
+
+            }
+
 });
 
 
-
+let cvLink;
 app.post("/upload/cv/:id", multer({ dest: './uploads/' }).single('upl'), function (req, res) {
-	console.log("reddy");
+
+    console.log("coverletter");
+
 	if (req.files) {
 		var file = req.files.cv;
-		var filename = file.name;
-		file.mv("./client/upload/" + filename, function (err) {
+        var filename = file.name;
+        cvLink = "./client/upload/cv/" + filename;
+        file.mv("./client/upload/cv/" + filename, function (err) {
 			if (err) {
 				console.log(err)
 				res.send({ success: false, err: err });
@@ -166,31 +195,44 @@ app.post("/upload/cv/:id", multer({ dest: './uploads/' }).single('upl'), functio
 	}
 });
 
+app.post('/applications/add/:id', function (req, res) {
+    let wher = {};
 
-app.post('/applications/add', function (req, res) {
+    console.log("jobApplication");
+    db.jobs.findOne({ _id: ObjectId(req.params.id) }, function (err, result) {
+        wher.ide = ObjectId(req.params.id);
+				//wher.uname = user.user_name;
 
-	req.checkBody('jobID', 'JobID is required').notEmpty();
-	req.checkBody('myResume', 'Resume is required').notEmpty();
-	req.checkBody('myCV', 'CV is required').notEmpty();
+				req.checkBody('user_name', 'Uname is required').notEmpty();
+				req.checkBody('job_title', 'Title is required').notEmpty();
 
-	var errors = req.validationErrors();
+        console.log(wher);
+        db.jobs.find({ _id: wher.ide }, function (err, docs) {
+            if (!err) {
+                console.log(resumeLink);
+                console.log(cvLink);
+                var newApplication = {
+                    jobID: wher.ide,
+										user_name: req.session.user.username,
+										//jobTitle : req.body.job_title,
+                    resumeLink: resumeLink,
+                    cvLink: cvLink
 
-	if (errors) {
-		res.render('applyJob', {
-			title: 'Customers',
-			jobs: jobs,
-			errors: errors
-		});
-	}
-	else {
-		var newUser = {
-			jobID: req.body.jobID,
-			myResume: req.body.myResume,
-			myCV: req.body.myCV
+                }
 
+                db3.userApplication.insert(newApplication, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log("new data is entered");
+                        res.redirect('/applicationSuccess');
+                    }
+                });
 
-		}
-	}
+            }
+        });
+    });
 });
 
 
@@ -254,11 +296,17 @@ app.get('/logout', function (req, res) {
 	req.session.user = null;
 	res.redirect("/");
 });
+app.get('/applicationSuccess', function (req, res) {
+	res.render('applicationSuccess',{
+		title:'USLadders'
+	});
+});
+
 
 app.post('/users/add', function (req, res) {
-	req.checkBody('username', 'User Name is required').notEmpty();
-	req.checkBody('email', 'Email is required').notEmpty();
-	req.checkBody('password', 'Password is required').notEmpty();
+	req.checkBody('userName', 'User Name is required').notEmpty();
+	req.checkBody('jobID', 'jobID is required').notEmpty();
+
 	var errors = req.validationErrors();
 
 	if (errors) {
@@ -344,6 +392,7 @@ app.post('/jobs/add', function(req,res){
 	req.checkBody('company_name', 'First Name is required').notEmpty();
 	req.checkBody('company_id', 'Last Name is required').notEmpty();
 	req.checkBody('employee_name', 'Email is required').notEmpty();
+	req.checkBody('job_title', 'title is required').notEmpty();
 	req.checkBody('user_name', 'Email is required').notEmpty();
 
 	req.checkBody('job_category', 'Category is required').notEmpty();
@@ -367,6 +416,7 @@ app.post('/jobs/add', function(req,res){
 		company_name : req.body.company_name,
 		company_id : req.body.company_id,
 		employee_name : req.body.employee_name,
+		job_title : req.body.job_title,
 		job_description: req.body.job_description,
 		job_category: req.body.job_category,
 		qualifications: req.body.qualifications,
@@ -519,10 +569,50 @@ app.post('/userprofiles/add', function(req,res){
 
 
 app.get('/jobsApplied', function (req, res) {
-    res.render('jobsApplied', {
-        title: 'USLadders'
-    });
+	let values =[];
+  let documents = [];
+	db3.userApplication.find({user_name : req.session.user.username},function (err, docs) {
+
+		if (!err) {
+			docs.forEach(function(document){
+      values += document.jobID;
+
+	});
+      console.log("values"+values);
+			for (var i = 0; i < itemIds.length; i++) {
+
+
+    //  collection.findOne({'_id':new BSON.ObjectID(itemIds[i])}, function(err, item) {
+
+
+			db.jobs.find( {'_id':new BSON.ObjectID(itemIds[i])},function (err, results) {
+				//console.log(docs.jobID);
+				itemsArray.push(results);
+			 //  if(user.username == job.user_name) {
+			 //   values.JOBID = job.jobID }
+			  });
+
+				res.render('jobsApplied', {
+				title: 'USLadders',
+				userApplications: docs,
+				jobdetails : itemsArray,
+				values : values
+
+ });
+		});
+	}
+		else {
+
+		}
+	});
+
+
+
+
+
+
 });
+
 app.get('/jobsPosted', function (req, res) {
 	db.jobs.find(function (err, docs) {
 		if (!err) {
@@ -553,6 +643,6 @@ app.get('/viewProfile', function (req, res) {
 });
 
 
-app.listen(3002, function(){
+app.listen(3015, function(){
 	console.log('Express started');
 });

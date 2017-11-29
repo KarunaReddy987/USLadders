@@ -1,0 +1,119 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<title> US Ladders </title>
+	<script
+  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<!-- Optional theme -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="/assets/main.css" />
+</head>
+<body>
+
+
+
+<div class="navbar navbar-default " id="hdr">
+<div class="container">
+    <img id="logo-main" src="https://cdn2.iconfinder.com/data/icons/employment-business/256/Job_Search-512.png" alt="Logo Thing main logo"></img>
+	<div class="titl">
+		<h1>USLadders</h1>
+	</div>
+
+</div>
+<div class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target=".navbar-collapse">
+                <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li id="home">
+					<a href="/">Home</a>
+				</li>
+				<li id="findingJob">
+					<a href="/findingJob"> Find a Job </a>
+				</li>
+				<li id="postingJob">
+					<a href="/postingJob"> Post a Job </a>
+				</li>
+				<li id="resources">
+					<a href="/resources">Resources</a>
+				</li>
+				<li id="about">
+					<a href="/about">About</a>
+				</li>
+
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				
+				        <li ><a href ="/login"> Login </a></li>
+					
+					
+						
+		
+			  
+
+
+
+            <li><a href="#"></a></li>
+        </ul>
+      </li>
+            </ul>
+        </div>
+        <!--/.navbar-collapse -->
+    </div>
+</div>
+ </div>
+<div class="container" id="mcontent">
+	
+
+
+<h1> Apply for the job </h1>
+
+<form>
+
+<label> Job ID  </label>
+<h2><center><p>Input field: <input type="text" name ="jobId" id="jobID" value= "hgjhgjg" </p><center></h2>
+<br>
+
+<form  method="post" enctype="multipart/form-data"   >
+
+      <input type="file" name="filetoupload"><br>
+      <input type="submit" id = "fileup">
+      </form>
+
+
+	
+<input type= "submit" name="Submit" class="btn btn-success" value="Apply">
+
+<input type= "submit" name="Cancel" class="btn btn-danger" value="Cancel"> 
+
+</form>
+
+<script>
+$("#jobID").val("59e2a6e1acdf320a48fdf11f");
+
+$()
+</script>
+
+
+
+</div>
+<script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script
+        src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>

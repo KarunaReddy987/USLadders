@@ -81,7 +81,7 @@ function load() {
                 <thead>
                     <tr class="filters">
                         <th><input type="text" class="form-control" placeholder="Company" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Company ID" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Job Title" disabled></th>
                         <th><input type="text" class="form-control" placeholder="Employee Name" disabled></th>
                         <th><input type="text" class="form-control" placeholder="Category" disabled></th>
 												<th><input type="text" class="form-control" placeholder="Description" disabled></th>
@@ -97,7 +97,7 @@ function load() {
 									<% jobs.forEach(function(job){ %>
                     <tr>
 											<td><%= job.company_name %></td>
-											<td><%=job.company_id %></td>
+											<td><%=job.job_title %></td>
 											<td><%=job.employee_name %></td>
 											<td><%= job.job_category %></td>
 											<td><%=job.job_description %></td>
@@ -106,7 +106,7 @@ function load() {
 											 <td> <%=job.contact_details %></td>
 
 <% if(user){ %>
-											<td><button type= "button" class="btn" id = "<%=job._id%>"> <span style="color:white">Apply </span></a> </button></td>
+											<td><button type= "button" class="btn-apply" id = "<%=job._id%>"> <span style="color:white">Apply </span></a> </button></td>
 <% } %>
                     </tr>
                     <% }) %>
