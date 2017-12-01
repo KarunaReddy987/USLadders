@@ -14,7 +14,7 @@ var formidable = require('formidable');
 var multer = require('multer');
 var upload = require("express-fileupload");
 var fs = require('fs');
-
+var async = require('async');
 
 app.use(upload());
 
@@ -156,8 +156,8 @@ app.post("/upload/resume/:id", multer({ dest: './uploads/' }).single('upl'), fun
                 if (req.files) {
                     var file = req.files.resume;
                     var filename = file.name;
-                    resumeLink = "./client/upload/resume/" + filename;
-                    file.mv("./client/upload/resume/" + filename, function (err) {
+                    resumeLink = "./upload/resume/" + filename;
+                    file.mv("./upload/resume/" + filename, function (err) {
                         if (err) {
                             console.log(err)
                             res.send({ success: false, err: err });
@@ -181,8 +181,8 @@ app.post("/upload/cv/:id", multer({ dest: './uploads/' }).single('upl'), functio
 	if (req.files) {
 		var file = req.files.cv;
         var filename = file.name;
-        cvLink = "./client/upload/cv/" + filename;
-        file.mv("./client/upload/cv/" + filename, function (err) {
+        cvLink = "./upload/cv/" + filename;
+        file.mv("./upload/cv/" + filename, function (err) {
 			if (err) {
 				console.log(err)
 				res.send({ success: false, err: err });
@@ -304,8 +304,12 @@ app.get('/applicationSuccess', function (req, res) {
 
 
 app.post('/users/add', function (req, res) {
-	req.checkBody('userName', 'User Name is required').notEmpty();
-	req.checkBody('jobID', 'jobID is required').notEmpty();
+
+	req.checkBody('username', 'User Name is required').notEmpty();
+	req.checkBody('email', 'User Name is required').notEmpty();
+	req.checkBody('password', 'User Name is required').notEmpty();
+	req.checkBody('confirmpassword', 'User Name is required').notEmpty();
+
 
 	var errors = req.validationErrors();
 
@@ -530,7 +534,6 @@ app.post('/userprofiles/add', function(req,res){
 	req.checkBody('job_preference', 'Contact are required').notEmpty();
 
 
-
 	var errors = req.validationErrors();
 
 	if(errors){
@@ -540,7 +543,8 @@ app.post('/userprofiles/add', function(req,res){
 		errors:errors
 	});
 }
-	else{
+	else {
+		var count = 0 ;
 		var newUser1 = {
 			first_name: req.body.first_name,
 			last_name: req.body.last_name,
@@ -551,65 +555,98 @@ app.post('/userprofiles/add', function(req,res){
 			inlineRadioOptions: req.body.inlineRadioOptions,
 			experience: req.body.experience,
 			university: req.body.university,
-			job_preference: req.body.job_preference
+			job_preference: req.body.job_preference,
+			count:count+1
 
 		}
-
-		db2.userprofiles.insert(newUser1,function (err,result) {
-	if(err){
-		console.log(err);
-	}
-	else{
-		res.redirect('/viewProfile');
-	}
-})
+		db2.userprofiles.insert(newUser1, function (err, result) {
+			count = count + 1;
+				if (err) {
+					console.log(err);
+				}
+				else {
+					res.redirect('/viewProfile');
+				}
+			})
+		
 	}
 
 	});
 
 
 app.get('/jobsApplied', function (req, res) {
-	let values =[];
-  let documents = [];
-	db3.userApplication.find({user_name : req.session.user.username},function (err, docs) {
+	let values = [];
+	let documents = [];
+	db3.userApplication.find({ user_name: req.session.user.username }, function (err, docs) {
 
 		if (!err) {
-			docs.forEach(function(document){
-      values += document.jobID;
+			let newDocs = [];
+			/*
+			let i = 0, j = 0;
+			for (i = 0, j=0; i < docs.length; i++) {
+				let userA = {};
+				userA.apl = docs[i];
+				db.jobs.findOne({ _id: docs[i].jobID }, function (err, job_result) {
+					console.log('job_result', job_result);
+					userA.job_desc = job_result;
+					j++;
+					newDocs.push(userA);
+				});
+				
+			}
+			*/
+			async.each(docs, function (doc, callback) {
+				let userA = {};
+				userA.apl = doc;
+				db.jobs.findOne({ _id: doc.jobID }, function (err, job_result) {
+					console.log('job_result', job_result);
+					userA.job_desc = job_result;
+					newDocs.push(userA);
+					callback();
+				});
+			}, function (err) {
+				if (err) {
+					console.log('err - newDocs', newDocs);
+				} else {
+					console.log('newDocs', newDocs);
+					res.render('jobsApplied', {
+						title: 'USLadders',
+						userApplications: newDocs
+					});
+				}
+				});
+			
+			
+				
+			
+		}
+		
+		/*
+		if (!err) {
+			docs.forEach(function (document) {
+				values += document.jobID;
 
-	});
-      console.log("values"+values);
+			});
+			console.log("values" + values);
 			for (var i = 0; i < itemIds.length; i++) {
 
 
-    //  collection.findOne({'_id':new BSON.ObjectID(itemIds[i])}, function(err, item) {
+				//  collection.findOne({'_id':new BSON.ObjectID(itemIds[i])}, function(err, item) {
 
 
-			db.jobs.find( {'_id':new BSON.ObjectID(itemIds[i])},function (err, results) {
-				//console.log(docs.jobID);
-				itemsArray.push(results);
-			 //  if(user.username == job.user_name) {
-			 //   values.JOBID = job.jobID }
-			  });
+				db.jobs.find({ '_id': new BSON.ObjectID(itemIds[i]) }, function (err, results) {
+					//console.log(docs.jobID);
+					itemsArray.push(results);
+					//  if(user.username == job.user_name) {
+					//   values.JOBID = job.jobID }
+				});
 
-				res.render('jobsApplied', {
-				title: 'USLadders',
-				userApplications: docs,
-				jobdetails : itemsArray,
-				values : values
-
- });
-		});
-	}
-		else {
-
-		}
+			
+			}
+		*/
+			
+		
 	});
-
-
-
-
-
 
 });
 
@@ -629,12 +666,14 @@ app.get('/jobsPosted', function (req, res) {
 
 
 app.get('/viewProfile', function (req, res) {
-	db2.userprofiles.find(function (err, profiles) {
+	db2.userprofiles.find({ count: 1 }, function (err, profiles) {
 		if (!err) {
 			res.render('viewProfile', {
 				title: 'USLadders',
 				userprofiles: profiles
 			});
+			console.log(profiles);
+
 		}
 		else {
 
