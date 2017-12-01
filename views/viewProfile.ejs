@@ -2,6 +2,9 @@
 <% include partials/navbar %>
 
 <h1><b> <%= user.username %> 's Profile </b> </h1>
+
+ <% if(userprofiles.length!=0) {  %>
+
         <div class="container bootstrap snippet">
         <div class="panel-body inf-content">
             <div class="row">
@@ -11,8 +14,7 @@
                 <div class="col-md-3">
 
 
-
-                    <img alt="" style="width:200px;" title="" class="img-circle img-thumbnail isTooltip" src="\assets\apple.png" data-original-title="Usuario">
+			                    <img alt="" style="width:200px;" title="" class="img-circle img-thumbnail isTooltip" src="\assets\apple.png" data-original-title="Usuario">
 
                 </div>
 
@@ -134,15 +136,16 @@
 
         <a href = "/updateProfile" class="btn btn-primary pull-right" style="width:150px;">Edit Picture</a>
 
+	 <% } %>
+ 
+  <% if(userprofiles.length==0) {  %>
+
+  <h1> Please fill in your Profile details <h1>
+  
+          <a href = "/updateProfile" class="btn btn-primary" style="width:150px;">Update Profile</a><br><br>
 
 
-
-
-
-
-
-
-
+  	 <% } %>
 
 
 
@@ -165,6 +168,7 @@
     </fieldset>
 	<% }) %>
 </form> -->
+
 
  <!-- <a href = "/updateProfile" class="btn btn-success"> EditProfile </a> -->
 

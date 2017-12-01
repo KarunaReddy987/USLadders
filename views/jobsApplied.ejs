@@ -5,38 +5,21 @@
 <br>
 
 <body>
-  <% userApplications.forEach(function(job){ %>
-  <% if(user.username == job.user_name  ) {%>
-   <%=job.jobID %>
-   <br>
-<%=job.resumeLink %>
- <br>
-
-<% jobdetails.forEach(function(jobDetail){ %>
-
-
- <% if( job.jobID = jobDetail._id  ) {%>
-
-
- <%=jobDetail.company_name %>
-  <br>
-   <%= jobDetail.job_category %>
-    <br>
- <%=jobDetail.job_description %>
-  <br>
-  <% } %>
-<% }) %>
+<% if(userApplications.length == 0){ %>
+<h1> You dont have any Jobs Applied </h1>
 <% } %>
- <% }) %>
 
+  <% for(let i =0; i<userApplications.length; i++){ %>
+	Job id : <%= userApplications[i].apl.jobID %> <br/>
+	Resume : <a href="<%= userApplications[i].apl.resumeLink %>" >Resume for this job </a><br/>
+		CoverLetter : <a href="<%= userApplications[i].apl.cvLink %>" >CV for this job </a><br/>
+
+	Job Title : <%= userApplications[i].job_desc.job_title %> <br/>
+		Job Description : <%= userApplications[i].job_desc.job_description %> <br/>
+
+  <% } %>
 </body>
 <% include partials/footer %>
 
 
 
-
-<script>
-$("#JOBID").val("<%= values.JOBID %>");
-
-
-</script>
