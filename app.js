@@ -20,7 +20,7 @@ app.use(upload());
 
 
 // Use the session middleware
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 36000000000000 } }))
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 36000000000000 }, resave: true, saveUninitialized: true }))
 
 //Body parser middleware
 app.use(bodyParser.json());
@@ -599,7 +599,7 @@ app.get('/jobsApplied', function (req, res) {
 				values : values
 
  });
-		});
+}
 	}
 		else {
 
