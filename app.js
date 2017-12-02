@@ -20,7 +20,7 @@ app.use(upload());
 
 
 // Use the session middleware
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 36000000000000 } }))
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 36000000000000 }, resave: true, saveUninitialized: true }))
 
 //Body parser middleware
 app.use(bodyParser.json());
@@ -634,12 +634,23 @@ app.get('/jobsApplied', function (req, res) {
 				//  collection.findOne({'_id':new BSON.ObjectID(itemIds[i])}, function(err, item) {
 
 
-				db.jobs.find({ '_id': new BSON.ObjectID(itemIds[i]) }, function (err, results) {
-					//console.log(docs.jobID);
-					itemsArray.push(results);
-					//  if(user.username == job.user_name) {
-					//   values.JOBID = job.jobID }
-				});
+			db.jobs.find( {'_id':new BSON.ObjectID(itemIds[i])},function (err, results) {
+				//console.log(docs.jobID);
+				itemsArray.push(results);
+			 //  if(user.username == job.user_name) {
+			 //   values.JOBID = job.jobID }
+			  });
+
+				res.render('jobsApplied', {
+				title: 'USLadders',
+				userApplications: docs,
+				jobdetails : itemsArray,
+				values : values
+
+ });
+}
+	}
+		else {
 
 			
 			}

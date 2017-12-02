@@ -531,3 +531,18 @@ body {
 /*img1 {
   border-radius: 50%;
 }*/
+
+.business-header {
+  height: 40vh;
+  min-height: 250px;
+  background: url('/assets/jobs.jpg') center center no-repeat scroll;
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.card {
+  height: 100%;
+}
