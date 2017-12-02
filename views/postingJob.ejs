@@ -29,9 +29,11 @@
 <label> Job Title </label>
 <input  type="text" name= "job_title" required class="form-control" placeholder=" Job Title">
 <br>
+<% if(user){ %>
 <label> User Name </label>
 <input  type="text" name= "user_name" required class="form-control" value = "<%= user.username %>" readonly>
 <br>
+<% } %>
 <label> Job Category </label>
 <br>
 <select type="text" name="job_category" required class="form-control">
