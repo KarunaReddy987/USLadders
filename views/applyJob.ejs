@@ -1,7 +1,39 @@
 <% include partials/header %>
 <% include partials/navbar %>
+<head>
+  <style>
+  body{
+  /* Safari 4-5, Chrome 1-9 */
+    /*background: -webkit-gradient(radial, center center, 0, center center, 460, from(#1a82f7), to(#2F2727));*/
 
-<h1> Apply for the job </h1>
+  /* Safari 5.1+, Chrome 10+ */
+    background: -webkit-radial-gradient(circle, #1a82f7, #2F2727);
+
+  /* Firefox 3.6+ */
+    background: -moz-radial-gradient(circle, #1a82f7, #2F2727);
+
+  /* IE 10 */
+    background: -ms-radial-gradient(circle, #1a82f7, #2F2727);
+    height:600px;
+}
+
+.centered-form{
+	margin-top: 60px;
+}
+
+.centered-form .panel{
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+
+label.label-floatlabel {
+    font-weight: bold;
+    color: #46b8da;
+    font-size: 11px;
+}
+  </style>
+</head>
+<!-- <h1> Apply for the job </h1>
 
 
 
@@ -39,7 +71,7 @@
 
 <label>Resume</label>
 <form  method="post" id="myResume" enctype="multipart/form-data" action = "/upload/resume/<%= wher.ide %>"  >
-      <input type="file" name="resume" required ><br>
+      <input type="file" name="resume"><br>
 
 
 
@@ -74,7 +106,117 @@ $("#jobID").val("<%= wher.ide %>");
 
 
 
-<script src="/js/main.js"></script>
+<script src="/js/main.js"></script> -->
+<script type="text/javascript" src="http://www.clubdesign.at/floatlabels.js"></script>
 
+<div class="container">
+        <div class="row ">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-2">
+        	<div class="panel panel-default">
+        		<div class="panel-heading">
+			    		<h3 class="panel-title text-center">Apply </h3>
+			 			</div>
+			 			<div class="panel-body">
+              <% jobs.forEach(function(job){ %>
+			    		<form role="form">
+			    			<div class="row">
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+                      <label> First Name </label>
+                      <input  type="text" name= "user_name" required class="form-control" value = "<%= user.username %>" readonly>
+			                <!-- <input type="text" name="first_name" id="first_name" class="form-control input-sm floatlabel" placeholder="First Name"> -->
+                      <br>
+                      <label> Job ID </label>
+                      <input  type="text" name= "jobID" required class="form-control" value = "<%= wher.ide %>" readonly>
+                      <!-- <br> -->
+                  	</div>
+			    				</div>
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+
+                      <label> Last Name </label>
+
+			    						<input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last name" >
+            <br>    <label>Job Title</label>
+                        <input  type="text" name= "jobID" required class="form-control" value = "<%=job.job_title %>" readonly>
+			    					</div>
+			    				</div>
+			    			</div>
+
+			    			<div class="form-group">
+
+                  <label> Email </label>
+
+                  <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+<br>
+
+
+        <label>Company Name
+          <input  type="text" name= "jobID" required class="form-control" value = "<%= job.company_name %>" readonly>
+        <br>
+
+        <!-- <label>Job Title -->
+          <!-- <input  type="text" name= "jobID" required class="form-control" value = "<%=job.job_title %>" readonly> -->
+        <!-- <br> -->
+        Job Description
+        <textarea rows="3" cols="30" readonly><%=job.job_description %></textarea>
+<!-- <input  type="text" name= "jobID" required class="form-control" value = " <%=job.job_description %>" readonly> -->
+
+
+                  <% }) %><br><br>
+                  <div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+                  <label>Resume</label>
+                  <form  method="post" id="myResume" enctype="multipart/form-data" action = "/upload/resume/<%= wher.ide %>"  >
+                        <input type="file" name="resume"><br>
+                        <input type="button" class="doc" name = "Upload" id="<%= wher.ide %>"  value = "fileupload"><br/>
+                  	  <span id="resumeUpldStatus"></span>
+                  </form>
+                </div>
+                  </div>
+			    			<!-- <div class="row">
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+			    						<input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+			    					</div>
+			    				- </div> -->
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+                      <label>Cover Letter</label>
+                      <form  method="post" id="myCV" enctype="multipart/form-data" action = "/upload/cv/<%= wher.ide %>"  >
+                            <input type="file" name="cv"><br>
+
+
+
+                            <input type="button" class="docCV" name = "Upload" id="<%= wher.ide %>"  value = "fileupload"><br/>
+                      	  <span id="cvUpldStatus"></span>
+                        </form>
+                    	<!-- <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password"> -->
+			    					</div>
+			    				</div>
+			    			<!-- </div> -->
+
+			    			<!-- <input type="submit" value="Submit" class="btn btn-info btn-block"> -->
+
+			    		</form>
+              <form method = "POST" action = "/applications/add/<%= wher.ide %>">
+              <% if(user){ %>
+            <br>  <input type= "submit" class="btn btn-application" name="btn-application"  id="<%= wher.ide %>" value = "Submit Application">
+              <% } %>
+              </form>
+              <script>
+              $("#jobID").val("<%= wher.ide %>");
+
+
+              </script>
+
+
+
+              <script src="/js/main.js"></script>
+			    	</div>
+	    		</div>
+    		</div>
+    	</div>
+    </div>
 
 <% include partials/footer %>

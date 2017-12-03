@@ -568,7 +568,7 @@ app.post('/userprofiles/add', function(req,res){
 					res.redirect('/viewProfile');
 				}
 			})
-		
+
 	}
 
 	});
@@ -592,7 +592,7 @@ app.get('/jobsApplied', function (req, res) {
 					j++;
 					newDocs.push(userA);
 				});
-				
+
 			}
 			*/
 			async.each(docs, function (doc, callback) {
@@ -615,12 +615,12 @@ app.get('/jobsApplied', function (req, res) {
 					});
 				}
 				});
-			
-			
-				
-			
+
+
+
+
 		}
-		
+
 		/*
 		if (!err) {
 			docs.forEach(function (document) {
@@ -652,11 +652,11 @@ app.get('/jobsApplied', function (req, res) {
 	}
 		else {
 
-			
+
 			}
 		*/
-			
-		
+
+
 	});
 
 });
@@ -693,6 +693,6 @@ app.get('/viewProfile', function (req, res) {
 });
 
 
-app.listen(3015, function(){
+app.listen(3020, function(){
 	console.log('Express started');
 });
